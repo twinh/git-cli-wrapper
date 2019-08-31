@@ -7,7 +7,7 @@
     "cli"
   ],
   "author": "twinh <twinhuang@qq.com>",
-  "homepage": "https://github.com/twinh/git-sync#readme",
+  "homepage": "https://github.com/twinh/gitsync#readme",
   "license": "MIT",
   "main": "index.ts",
   "files": [
@@ -15,7 +15,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/twinh/git-sync.git"
+    "url": "git+https://github.com/twinh/gitsync.git"
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"

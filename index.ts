@@ -1,6 +1,6 @@
 import * as execa from 'execa';
 import log from '@gitsync/log';
-import style from 'chalk-theme';
+import theme from 'chalk-theme';
 import * as path from 'path';
 
 export interface RunOptions {
@@ -40,9 +40,9 @@ export class Git {
       const result = await proc;
 
       log.verbose('command: %s, duration: %s, exit code: %s, output: %s',
-        style.info(args[0]),
-        style.info((new Date().getMilliseconds() - start.getMilliseconds()).toString() + 'ms'),
-        style.info(result.exitCode.toString()),
+        theme.info(args[0]),
+        theme.info((new Date().getMilliseconds() - start.getMilliseconds()).toString() + 'ms'),
+        theme.info(result.exitCode.toString()),
         result.all,
       );
 

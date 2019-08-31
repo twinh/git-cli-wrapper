@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@gitsync/log": "^1.0.0",
+    "@types/node": "^12.7.3",
     "chalk-theme": "^1.0.0",
     "execa": "^2.0.4"
   }

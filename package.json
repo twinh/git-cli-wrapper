@@ -24,6 +24,6 @@
     "@gitsync/log": "^0.1.0",
     "@types/node": "^12.7.3",
     "chalk-theme": "^0.1.0",
-    "execa": "^2.0.4"
+    "execa": "^2.0.0"
   }
 }

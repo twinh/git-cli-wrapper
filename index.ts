@@ -64,6 +64,13 @@ export class Git {
     return this.run(args, options);
   }
 
+  /**
+   * Check if the repo has commit
+   */
+  hasCommit() {
+    return this.run(['rev-list', '-n', '1', '--all']);
+  }
+
   getBranch() {
     return this.run(['symbolic-ref', '--short', 'HEAD']);
   }

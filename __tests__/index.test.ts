@@ -1,4 +1,25 @@
-import {createRepo, removeRepos} from "@gitsync/test";
+import * as path from "path";
+import * as fs from "fs";
+import {promisify} from "util";
+import * as rimraf from "rimraf";
+import git from '..';
+
+const baseDir = path.resolve('data');
+let nameIndex = 1;
+
+async function createRepo() {
+  const repoDir = path.join(baseDir, (nameIndex++).toString());
+  await promisify(fs.mkdir)(repoDir, {recursive: true});
+
+  const repo = git(repoDir);
+  await repo.run(['init']);
+
+  return repo;
+}
+
+function removeRepos() {
+  return promisify(rimraf)(baseDir);
+}
 
 afterAll(() => {
   removeRepos();
@@ -7,9 +28,13 @@ afterAll(() => {
 describe('ts-git', () => {
   test('hasCommit', async () => {
     const repo = await createRepo();
+
     expect(await repo.hasCommit()).toBeFalsy();
 
-    await repo.commitFile('test.txt');
+    await promisify(fs.writeFile)(repo.dir + '/test.txt', 'test');
+    await repo.run(['add', 'test.txt']);
+    await repo.run(['commit', '-am', 'add test.txt']);
+
     expect(await repo.hasCommit()).toBeTruthy();
   });
 

@@ -1,7 +1,6 @@
 import * as execa from 'execa';
-import log from '@gitsync/log';
-import theme from 'chalk-theme';
 import * as path from 'path';
+import theme from 'chalk-theme';
 
 export interface RunOptions {
   trimEnd?: boolean
@@ -10,21 +9,35 @@ export interface RunOptions {
   input?: string
 }
 
+export interface GitOptions {
+  logger?: Logger,
+}
+
+export interface Logger {
+  info(message?: any, ...params: any[]): void;
+
+  debug(message?: any, ...params: any[]): void;
+
+  [key: string]: any;
+}
+
 export class Git {
   private _dir: string;
   private name: string;
+  private logger: Logger = console;
 
   get dir(): string {
     return this._dir;
   }
 
-  constructor(dir: string) {
+  constructor(dir: string, options: GitOptions = {}) {
     this._dir = dir;
     this.name = path.basename(dir);
+    options.logger && (this.logger = options.logger);
   }
 
   async run(args: string[], options: RunOptions = {}) {
-    log.info(`${this.name} run command: ${args.join(' ')}`);
+    this.logger && this.logger.info(`${this.name} run command: ${args.join(' ')}`);
 
     const start = new Date();
 
@@ -39,7 +52,8 @@ export class Git {
     try {
       const result = await proc;
 
-      log.verbose('command: %s, duration: %s, exit code: %s, output: %s',
+      this.logger && this.logger.debug(
+        'command: %s, duration: %s, exit code: %s, output: %s',
         theme.info(args[0]),
         theme.info((new Date().getMilliseconds() - start.getMilliseconds()).toString() + 'ms'),
         theme.info(result.exitCode.toString()),
@@ -76,8 +90,6 @@ export class Git {
   }
 }
 
-function git(dir: string) {
-  return new Git(dir);
+export default function git(dir: string, options: GitOptions = {}) {
+  return new Git(dir, options);
 }
-
-export default git;

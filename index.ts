@@ -67,8 +67,8 @@ export class Git {
   /**
    * Check if the repo has commit
    */
-  hasCommit() {
-    return this.run(['rev-list', '-n', '1', '--all']);
+  async hasCommit() {
+    return !!(await this.run(['rev-list', '-n', '1', '--all']));
   }
 
   getBranch() {

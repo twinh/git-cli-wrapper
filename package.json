@@ -15,15 +15,18 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/twinh/gitsync.git"
+    "url": "git+https://github.com/twinh/ts-git.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "jest"
   },
   "dependencies": {
     "@gitsync/log": "^0.1.0",
     "@types/node": "^12.7.3",
     "chalk-theme": "^0.1.0",
     "execa": "^2.0.0"
+  },
+  "devDependencies": {
+    "@gitsync/test": "^0.1.0"
   }
 }

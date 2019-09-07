@@ -25,7 +25,7 @@ afterAll(() => {
   removeRepos();
 });
 
-describe('ts-git', () => {
+describe('git-cli-wrapper', () => {
   test('hasCommit', async () => {
     const repo = await createRepo();
 

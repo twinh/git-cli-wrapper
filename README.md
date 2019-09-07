@@ -1,11 +1,11 @@
-# `ts-git`
+# `git-cli-wrapper`
 
 > Git cli wrapper
 
 ## Usage
 
 ```
-const tsGit = require('ts-git');
+const tsGit = require('git-cli-wrapper');
 
 // TODO: DEMONSTRATE API
 ```

@@ -1,5 +1,5 @@
 {
-  "name": "ts-git",
+  "name": "git-cli-wrapper",
   "version": "0.1.2",
   "description": "Git cli wrapper",
   "keywords": [
@@ -15,7 +15,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/twinh/ts-git.git"
+    "url": "git+https://github.com/twinh/git-cli-wrapper.git"
   },
   "scripts": {
     "build": "tsc",

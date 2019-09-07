@@ -1,6 +1,6 @@
 import * as execa from 'execa';
 import * as path from 'path';
-import theme from 'chalk-theme2';
+import theme from 'chalk-theme';
 
 export interface RunOptions {
   trimEnd?: boolean

@@ -18,7 +18,10 @@
     "url": "git+https://github.com/twinh/ts-git.git"
   },
   "scripts": {
-    "test": "jest"
+    "build": "tsc",
+    "clean": "rimraf dist coverage",
+    "test": "jest",
+    "prepare": "yarn build"
   },
   "dependencies": {
     "@types/node": "^12.7.3",
@@ -26,6 +29,11 @@
     "execa": "^2.0.0"
   },
   "devDependencies": {
-    "rimraf": "^3.0.0"
+    "@types/jest": "^24.0.18",
+    "coveralls": "^3.0.6",
+    "jest": "^24.9.0",
+    "rimraf": "^3.0.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.3"
   }
 }

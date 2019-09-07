@@ -1,6 +1,6 @@
 {
   "name": "ts-git",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Git cli wrapper",
   "keywords": [
     "git",
@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@types/node": "^12.7.3",
-    "chalk-theme2": "^0.1.0",
+    "chalk-theme2": "^0.1.1",
     "execa": "^2.0.0"
   },
   "devDependencies": {

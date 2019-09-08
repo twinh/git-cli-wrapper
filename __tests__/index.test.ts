@@ -2,7 +2,6 @@ import * as path from "path";
 import * as fs from "fs";
 import {promisify} from "util";
 import * as rimraf from "rimraf";
-import * as makeDir from 'make-dir';
 import git from '..';
 
 const baseDir = path.resolve('data');
@@ -10,8 +9,7 @@ let nameIndex = 1;
 
 async function createRepo() {
   const repoDir = path.join(baseDir, (nameIndex++).toString());
-
-  await makeDir(repoDir);
+  await promisify(fs.mkdir)(repoDir, {recursive: true});
 
   const repo = git(repoDir);
   await repo.run(['init']);

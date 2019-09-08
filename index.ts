@@ -1,6 +1,5 @@
 import * as execa from 'execa';
 import * as path from 'path';
-import * as trim from 'trim';
 import theme from 'chalk-theme';
 
 export interface RunOptions {
@@ -65,7 +64,7 @@ export class Git {
         return result.all;
       }
 
-      return trim.right(result.all);
+      return result.all.trimEnd();
     } catch (e) {
       if (!options.mute) {
         throw e;

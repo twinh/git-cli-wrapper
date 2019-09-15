@@ -90,6 +90,13 @@ export class Git {
   }
 }
 
-export default function git(dir: string, options: GitOptions = {}) {
+function git(dir: string, options: GitOptions = {}) {
+  if (typeof options.logger === 'undefined') {
+    options.logger = git.logger;
+  }
   return new Git(dir, options);
 }
+
+git.logger = null;
+
+export default git;

@@ -14,7 +14,7 @@ export interface GitOptions {
 }
 
 export interface Logger {
-  info(message?: any, ...params: any[]): void;
+  trace(message?: any, ...params: any[]): void;
 
   debug(message?: any, ...params: any[]): void;
 
@@ -24,7 +24,7 @@ export interface Logger {
 export class Git {
   private _dir: string;
   private name: string;
-  private logger: Logger = console;
+  private logger: Logger;
 
   get dir(): string {
     return this._dir;
@@ -37,7 +37,7 @@ export class Git {
   }
 
   async run(args: string[], options: RunOptions = {}) {
-    this.logger && this.logger.info(`${this.name} run command: ${args.join(' ')}`);
+    this.logger && this.logger.debug(`${this.name} run command: ${args.join(' ')}`);
 
     const start = new Date();
 
@@ -52,7 +52,7 @@ export class Git {
     try {
       const result = await proc;
 
-      this.logger && this.logger.debug(
+      this.logger && this.logger.trace(
         'command: %s, duration: %s, exit code: %s, output: %s',
         theme.info(args[0]),
         theme.info((new Date().getMilliseconds() - start.getMilliseconds()).toString() + 'ms'),

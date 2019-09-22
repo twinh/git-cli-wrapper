@@ -1,6 +1,7 @@
 import * as execa from 'execa';
 import * as path from 'path';
 import theme from 'chalk-theme';
+import {ExecaReturnValue} from "execa";
 
 export interface RunOptions {
   trimEnd?: boolean
@@ -25,6 +26,7 @@ export class Git {
   private _dir: string;
   private name: string;
   private logger: Logger;
+  private start: Date;
 
   get dir(): string {
     return this._dir;
@@ -37,9 +39,7 @@ export class Git {
   }
 
   async run(args: string[], options: RunOptions = {}) {
-    this.logger && this.logger.debug(`${this.name} run command: ${args.join(' ')}`);
-
-    const start = new Date();
+    this.startLog(args);
 
     const proc = execa('git', args, {
       cwd: this._dir,
@@ -52,13 +52,7 @@ export class Git {
     try {
       const result = await proc;
 
-      this.logger && this.logger.trace(
-        'command: %s, duration: %s, exit code: %s, output: %s',
-        theme.info(args[0]),
-        theme.info((new Date().getMilliseconds() - start.getMilliseconds()).toString() + 'ms'),
-        theme.info(result.exitCode.toString()),
-        result.all,
-      );
+      this.endLog(args, result);
 
       if (options.trimEnd === false) {
         return result.all;
@@ -66,6 +60,8 @@ export class Git {
 
       return result.all.trimEnd();
     } catch (e) {
+      this.endLog(args, e);
+
       if (!options.mute) {
         throw e;
       }
@@ -87,6 +83,21 @@ export class Git {
 
   getBranch() {
     return this.run(['symbolic-ref', '--short', 'HEAD']);
+  }
+
+  private startLog(args: string[]) {
+    this.logger && this.logger.debug(`${this.name} run command: ${args.join(' ')}`);
+    this.start = new Date();
+  }
+
+  private endLog(args: string[], result: ExecaReturnValue<string>) {
+    this.logger && this.logger.trace(
+      'command: %s, duration: %s, exit code: %s, output: %s',
+      theme.info(args[0]),
+      theme.info((new Date().getMilliseconds() - this.start.getMilliseconds()).toString() + 'ms'),
+      theme.info(result.exitCode.toString()),
+      result.all,
+    );
   }
 }
 

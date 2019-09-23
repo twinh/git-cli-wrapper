@@ -69,10 +69,12 @@ describe('git-cli-wrapper', () => {
     });
 
     expect(logs[0]).toEqual(['debug', `${path.basename(repo.dir)} run command: init`]);
-    expect(logs[1][0]).toEqual('trace');
-    expect(logs[1][1]).toEqual('command: %s, duration: %s, exit code: %s, output: %s');
-    expect(logs[1][2]).toEqual(theme.info('init'));
-    expect(logs[1][4]).toEqual(theme.info('0'));
+    expect(logs[1]).toEqual(expect.arrayContaining([
+      'trace',
+      'command: %s, duration: %s, exit code: %s, output: %s',
+      theme.info('init'),
+      theme.info('0')
+    ]));
   });
 
   test('startLog endLog error', async () => {
@@ -83,9 +85,11 @@ describe('git-cli-wrapper', () => {
     await repo.run(['unknown'], {mute: true});
 
     expect(logs[2]).toEqual(['debug', `${path.basename(repo.dir)} run command: unknown`]);
-    expect(logs[3][0]).toEqual('trace');
-    expect(logs[3][1]).toEqual('command: %s, duration: %s, exit code: %s, output: %s');
-    expect(logs[3][2]).toEqual(theme.info('unknown'));
-    expect(logs[3][4]).toEqual(theme.info('1'));
+    expect(logs[3]).toEqual(expect.arrayContaining([
+      'trace',
+      'command: %s, duration: %s, exit code: %s, output: %s',
+      theme.info('unknown'),
+      theme.info('1')
+    ]));
   });
 });

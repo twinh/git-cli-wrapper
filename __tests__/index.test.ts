@@ -34,15 +34,15 @@ function removeRepos() {
   return promisify(rimraf)(baseDir);
 }
 
-afterAll(() => {
-  removeRepos();
-});
-
-afterEach(() => {
-  logs = [];
-});
-
 describe('git-cli-wrapper', () => {
+  afterAll(async () => {
+    await removeRepos();
+  });
+
+  afterEach(() => {
+    logs = [];
+  });
+
   test('hasCommit', async () => {
     const repo = await createRepo();
 

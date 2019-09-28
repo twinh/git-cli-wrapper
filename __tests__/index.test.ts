@@ -4,6 +4,7 @@ import {promisify} from "util";
 import * as rimraf from "rimraf";
 import theme from 'chalk-theme';
 import git, {GitOptions} from '..';
+import {catchError} from "@gitsync/test";
 
 const baseDir = path.resolve('data');
 let nameIndex = 1;
@@ -91,5 +92,14 @@ describe('git-cli-wrapper', () => {
       theme.info('unknown'),
       theme.info('1')
     ]));
+  });
+
+  test('error contains output', async () => {
+    const repo = await createRepo();
+    const error = await catchError(async () => {
+      await repo.run(['unknown']);
+    });
+
+    expect(error.message).toContain('Command failed with exit code 1 (EPERM): git unknown. Output: git: ');
   });
 });

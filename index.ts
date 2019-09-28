@@ -63,7 +63,7 @@ export class Git {
       this.endLog(args, e);
 
       if (!options.mute) {
-        throw e;
+        throw new Error(e.message + '. Output: ' + e.all);
       }
     }
   }

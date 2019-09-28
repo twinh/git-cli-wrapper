@@ -4,7 +4,6 @@ import {promisify} from "util";
 import * as rimraf from "rimraf";
 import theme from 'chalk-theme';
 import git, {GitOptions} from '..';
-import {catchError} from "@gitsync/test";
 
 const baseDir = path.resolve('data');
 let nameIndex = 1;
@@ -33,6 +32,16 @@ async function createRepo(options: GitOptions = {}) {
 
 function removeRepos() {
   return promisify(rimraf)(baseDir);
+}
+
+async function catchError(fn: Function) {
+  let error;
+  try {
+    await fn();
+  } catch (e) {
+    error = e;
+  }
+  return error;
 }
 
 describe('git-cli-wrapper', () => {

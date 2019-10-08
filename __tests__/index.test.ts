@@ -4,6 +4,7 @@ import {promisify} from "util";
 import * as rimraf from "rimraf";
 import theme from 'chalk-theme';
 import git, {GitOptions} from '..';
+import Repo from "@gitsync/test/Repo";
 
 const baseDir = path.resolve('data');
 let nameIndex = 1;
@@ -20,7 +21,23 @@ const logger = {
   },
 };
 
+let hasIdentity: boolean = null;
+
+// Set global user for GitHub actions
+async function initIdentity() {
+  if (hasIdentity === null) {
+    const repo = new Repo('.');
+    hasIdentity = !!await repo.run(['config', '--global', 'user.email'], {mute: true});
+    if (!hasIdentity) {
+      await repo.run(['config', '--global', 'user.email', 'you@example.com']);
+      await repo.run(['config', '--global', 'user.name', 'Your Name']);
+    }
+  }
+}
+
 async function createRepo(options: GitOptions = {}) {
+  await initIdentity();
+
   const repoDir = path.join(baseDir, (nameIndex++).toString());
   await promisify(fs.mkdir)(repoDir, {recursive: true});
 

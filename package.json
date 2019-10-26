@@ -1,6 +1,6 @@
 {
   "name": "git-cli-wrapper",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Git cli wrapper",
   "keywords": [
     "git",
@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@types/node": "^12.7.3",
-    "chalk-theme": "^0.2.1",
+    "chalk-theme": "^0.2.2",
     "execa": "^2.0.0"
   },
   "devDependencies": {

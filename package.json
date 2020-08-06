@@ -28,11 +28,11 @@
     "lint": "eslint '*/**/*.{js,ts}'"
   },
   "dependencies": {
-    "@types/node": "^14.0.23",
     "chalk-theme": "^0.2.3",
     "execa": "^2.0.0"
   },
   "devDependencies": {
+    "@types/node": "^14.0.27",
     "@types/jest": "^24.0.18",
     "@types/rimraf": "^2.0.2",
     "@typescript-eslint/eslint-plugin": "^2.11.0",

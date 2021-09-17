@@ -94,7 +94,7 @@ export class Git {
     this.logger && this.logger.trace(
       'command: %s, duration: %s, exit code: %s, output: %s',
       theme.info(args[0]),
-      theme.info((new Date().getMilliseconds() - this.start.getMilliseconds()).toString() + 'ms'),
+      theme.info((new Date().getTime() - this.start.getTime()).toString() + 'ms'),
       theme.info(result.exitCode.toString()),
       result.all,
     );
